@@ -100,6 +100,7 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         bitmaps.clear()
         online = false
         dirty = false
+        avatarsCount = 1
     }
 
     fun addBitmap(key: Int, bitmap: Bitmap) {
