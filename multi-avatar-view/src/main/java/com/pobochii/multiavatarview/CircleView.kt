@@ -149,7 +149,7 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
                 val src = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
                 val dst = RectF(0f, 0f, canvasWidth, canvasHeight)
                 val matrix = Matrix().also {
-                    it.setRectToRect(src, dst, Matrix.ScaleToFit.START)
+                    it.setRectToRect(src, dst, Matrix.ScaleToFit.FILL)
                 }
                 canvas.drawBitmap(bitmap, matrix, null)
             }
