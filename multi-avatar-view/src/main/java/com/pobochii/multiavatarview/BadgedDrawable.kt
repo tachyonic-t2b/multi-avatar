@@ -3,9 +3,12 @@ package com.pobochii.multiavatarview
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 
-class BadgedDrawable(resources: Resources, @DrawableRes private val resId: Int) : Drawable() {
+class BadgedDrawable(resources: Resources, @DrawableRes private val resId: Int, @ColorRes iconColor: Int) : Drawable() {
 
     private val density = resources.displayMetrics.density
     var showBadge = false
@@ -26,7 +29,7 @@ class BadgedDrawable(resources: Resources, @DrawableRes private val resId: Int) 
         }
     }
 
-    private val icon: Bitmap = resources.vectorToBitmap(resId, Color.WHITE)
+    private val icon: Bitmap = resources.vectorToBitmap(resId, ResourcesCompat.getColor(resources, iconColor, null))
 
     override fun onBoundsChange(bounds: Rect?) {
         rect.set(0f, 0f, icon.width.toFloat(), icon.height.toFloat())

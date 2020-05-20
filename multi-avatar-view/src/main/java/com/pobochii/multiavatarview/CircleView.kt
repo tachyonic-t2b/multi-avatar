@@ -141,8 +141,11 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     private fun updateBitmap() {
-        if (bitmaps.isEmpty()) return
         canvas.drawColor(Color.WHITE)
+        if (bitmaps.isEmpty()) {
+            invalidate()
+            return
+        }
         when (bitmaps.size()) {
             1, 2 -> {
                 val bitmap = bitmaps.valueAt(0)
