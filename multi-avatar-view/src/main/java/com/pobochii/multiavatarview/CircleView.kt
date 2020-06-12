@@ -5,11 +5,12 @@ import android.graphics.*
 import android.media.ThumbnailUtils
 import android.util.AttributeSet
 import android.util.SparseArray
-import android.widget.ImageView
 import androidx.annotation.ColorInt
+import androidx.appcompat.widget.AppCompatImageView
 
-class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ImageView(context, attrs, defStyleAttr) {
+class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr) {
 
+    private val defaultMatrix = Matrix()
     private val bitmaps: SparseArray<Bitmap> = SparseArray(MAX_CAPACITY)
     private val density = resources.displayMetrics.density
     private val cornerRadius = CORNER_RADIUS * density
@@ -88,12 +89,12 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         a.recycle()
         val createBitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888)
         canvas = Canvas(createBitmap)
-        background = CircleDrawable(createBitmap, cornerRadius, margin.toInt())
         canvasWidth = canvas.width - margin * 2
         canvasHeight = canvas.height - margin * 2
         canvasHalfWidth = canvasWidth / 2
         canvasHalfHeight = canvasHeight / 2
         textPaint.textSize = canvasWidth * 0.45f
+        background = CircleDrawable(createBitmap, cornerRadius, margin.toInt())
     }
 
     fun clear() {
@@ -149,12 +150,8 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         when (bitmaps.size()) {
             1, 2 -> {
                 val bitmap = bitmaps.valueAt(0)
-                val src = RectF(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat())
-                val dst = RectF(0f, 0f, canvasWidth, canvasHeight)
-                val matrix = Matrix().also {
-                    it.setRectToRect(src, dst, Matrix.ScaleToFit.FILL)
-                }
-                canvas.drawBitmap(bitmap, matrix, null)
+                val image = ThumbnailUtils.extractThumbnail(bitmap, canvasWidth.toInt(), canvasHeight.toInt())
+                canvas.drawBitmap(image, defaultMatrix, null)
             }
             3 -> {
                 for (index in 0 until bitmaps.size()) {
@@ -170,7 +167,7 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
                     when (key) {
                         0 -> {
                             val thumb = ThumbnailUtils.extractThumbnail(bitmap, (canvasHalfWidth - divider / 2).toInt(), canvasHeight.toInt())
-                            canvas.drawBitmap(thumb, Matrix(), null)
+                            canvas.drawBitmap(thumb, defaultMatrix, null)
                         }
                         1 -> {
                             val matrix = Matrix().also {
