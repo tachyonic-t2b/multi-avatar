@@ -3,12 +3,15 @@ package com.pobochii.multiavatarview
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat
 
-class BadgedDrawable(resources: Resources, @DrawableRes private val resId: Int, @ColorRes iconColor: Int) : Drawable() {
+class BadgedDrawable(
+    resources: Resources,
+    @DrawableRes private val resId: Int,
+    @ColorRes iconColor: Int
+) : Drawable() {
 
     private val density = resources.displayMetrics.density
     var showBadge = false
@@ -29,7 +32,8 @@ class BadgedDrawable(resources: Resources, @DrawableRes private val resId: Int, 
         }
     }
 
-    private val icon: Bitmap = resources.vectorToBitmap(resId, ResourcesCompat.getColor(resources, iconColor, null))
+    private val icon: Bitmap =
+        resources.vectorToBitmap(resId, ResourcesCompat.getColor(resources, iconColor, null))
 
     override fun onBoundsChange(bounds: Rect?) {
         rect.set(0f, 0f, icon.width.toFloat(), icon.height.toFloat())
@@ -40,7 +44,12 @@ class BadgedDrawable(resources: Resources, @DrawableRes private val resId: Int, 
         canvas.drawBitmap(icon, -rect.width() / 2f, -rect.height() / 2f, null)
         if (showBadge) {
             when {
-                CIRCLE -> canvas.drawCircle(rect.width() * RATE_XY, rect.width() * RATE_XY, BADGE_RADIUS * density, paint)
+                CIRCLE -> canvas.drawCircle(
+                    rect.width() * RATE_XY,
+                    rect.width() * RATE_XY,
+                    BADGE_RADIUS * density,
+                    paint
+                )
                 ARC -> canvas.drawArc(rect, 90f, 180f, true, paint)
                 else -> canvas.drawRoundRect(rect, CORNER_RADIUS, CORNER_RADIUS * density, paint)
             }
