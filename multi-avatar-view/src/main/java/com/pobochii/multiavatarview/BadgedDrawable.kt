@@ -10,7 +10,8 @@ import androidx.core.content.res.ResourcesCompat
 class BadgedDrawable(
     resources: Resources,
     @DrawableRes private val resId: Int,
-    @ColorRes iconColor: Int
+    @ColorRes iconColor: Int,
+    isFromCustomerApp: Boolean = false,
 ) : Drawable() {
 
     private val density = resources.displayMetrics.density
@@ -27,7 +28,8 @@ class BadgedDrawable(
     private val paint by lazy {
         Paint().apply {
             isAntiAlias = true
-            color = Color.RED
+            color = if (isFromCustomerApp) Color.GREEN
+            else Color.RED
             style = Paint.Style.FILL
         }
     }
