@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.util.SparseArray
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 
 class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr) {
 
@@ -35,7 +36,7 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     private val statusPaintOn by lazy {
         Paint().apply {
-            color = Color.GREEN
+            color = ContextCompat.getColor(context, R.color.online_status_color)
             isAntiAlias = true
             style = Paint.Style.FILL
         }

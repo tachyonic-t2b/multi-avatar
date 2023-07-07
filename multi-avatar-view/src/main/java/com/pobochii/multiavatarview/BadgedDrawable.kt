@@ -12,6 +12,7 @@ class BadgedDrawable(
     @DrawableRes private val resId: Int,
     @ColorRes iconColor: Int,
     isFromCustomerApp: Boolean = false,
+    badgeColorForCustomerApp: Int = 0
 ) : Drawable() {
 
     private val density = resources.displayMetrics.density
@@ -28,7 +29,7 @@ class BadgedDrawable(
     private val paint by lazy {
         Paint().apply {
             isAntiAlias = true
-            color = if (isFromCustomerApp) Color.GREEN
+            color = if (isFromCustomerApp) badgeColorForCustomerApp
             else Color.RED
             style = Paint.Style.FILL
         }
