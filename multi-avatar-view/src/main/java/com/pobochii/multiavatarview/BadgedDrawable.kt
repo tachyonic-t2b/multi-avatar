@@ -38,7 +38,7 @@ class BadgedDrawable(
     private val icon: Bitmap =
         resources.vectorToBitmap(resId, ResourcesCompat.getColor(resources, iconColor, null))
 
-    override fun onBoundsChange(bounds: Rect?) {
+    override fun onBoundsChange(bounds: Rect) {
         rect.set(0f, 0f, icon.width.toFloat(), icon.height.toFloat())
     }
 
