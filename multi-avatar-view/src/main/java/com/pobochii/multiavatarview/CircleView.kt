@@ -237,16 +237,14 @@ class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         statusY = (MeasureSpec.getSize(heightMeasureSpec) - margs) * RATE_XY
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (withStatus) {
-            canvas?.let {
-                with(it) {
-                    save()
-                    drawCircle(statusX, statusY, strokeRadius, statusStrokePaint)
-                    drawCircle(statusX, statusY, fillRadius, if (online) statusPaintOn else statusPaintOff)
-                    restore()
-                }
+            with(canvas) {
+                save()
+                drawCircle(statusX, statusY, strokeRadius, statusStrokePaint)
+                drawCircle(statusX, statusY, fillRadius, if (online) statusPaintOn else statusPaintOff)
+                restore()
             }
         }
     }

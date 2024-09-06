@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         version = "1.0.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -24,7 +24,7 @@ android {
     }
 
     lint {
-        isAbortOnError = false
+        abortOnError = false
     }
 
     compileOptions {
